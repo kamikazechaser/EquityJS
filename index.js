@@ -3,7 +3,7 @@
      *
      * A Node.js Library For The Equity Eazzy API 
      * 
-     * Mohammed Sohail <soahilsameja@gmail.com>
+     * Mohammed Sohail <sohailsameja@gmail.com>
      * Released Under AGPL-v3 License
      *
      */

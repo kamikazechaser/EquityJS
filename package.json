@@ -1,7 +1,7 @@
 {
   "name": "equityjs",
   "version": "1.0.0",
-  "description": "A Node.js Library For The Equity API",
+  "description": "A Node.js Library For The Equity Eazzy API",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
