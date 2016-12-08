@@ -1,0 +1,25 @@
+{
+  "name": "equityjs",
+  "version": "1.0.0",
+  "description": "A Node.js Library For The Equity API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamikazechaser/EquityJs.git"
+  },
+  "author": "Mohammed Sohail <sohailsameja@gmail.com>",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/kamikazechaser/EquityJs/issues"
+  },
+  "homepage": "https://github.com/kamikazechaser/EquityJs#readme",
+  "dependencies": {
+    "dotenv": "^2.0.0",
+    "needle": "^1.4.2",
+    "querystring": "^0.2.0",
+    "rangi": "^1.0.1"
+  }
+}
