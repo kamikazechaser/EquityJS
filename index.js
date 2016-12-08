@@ -17,7 +17,6 @@ const q = require('querystring');
 const c = require('rangi');
 const p = require('./package.json');
 const fs = require('fs');
-const env = require('dotenv');
 
    /**
      * Load Environmental Variables
@@ -48,9 +47,9 @@ const endpoint = {
      *
      */
 const error = {
-        noKeyAndSecret: 'You need to specify your Equity Consumer Key and Consumer Secret',
-        noParam: 'You need to specify your ',
-        missingParam: 'You must pass in the required parameters'
+    noKeyAndSecret: 'You need to specify your Equity Consumer Key and Consumer Secret',
+    noParam: 'You need to specify your ',
+    missingParam: 'You must pass in the required parameters'
 };
 
    /**
@@ -67,7 +66,7 @@ const api = {
     debug: false
 };
 
-const baseUrl = 'https://api.equitybankgroup.com'
+const baseUrl = 'https://api.equitybankgroup.com';
    /**
      * Constructor
      *
@@ -80,7 +79,7 @@ const baseUrl = 'https://api.equitybankgroup.com'
 
 const Equity = function (opts) {
     if (typeof opts !== 'object' || !opts.hasOwnProperty('consumerKey') || !opts.hasOwnProperty('consumerSecret')) {
-        console.log(c.red(error.noKeyAndSecret));
+        console.error(c.red(error.noKeyAndSecret));
         process.exit(1);
     }
 
@@ -108,23 +107,23 @@ Equity.prototype = {
         const data = {};
 
         if (typeof opts !== 'object') {
-            console.log(c.red(error.missingParam));
+            console.error(c.red(error.missingParam));
         }
 
         if (!opts.hasOwnProperty('username') || opts['username'] === '') {
-            console.log(c.red(error.noParam + 'username'));
+            console.error(c.red(error.noParam + 'username'));
         }
 
         data['username'] = opts['username'];
 
         if (!opts.hasOwnProperty('password') || opts['password'] === '') {
-            console.log(c.red(error.noParam + 'password'));
+            console.error(c.red(error.noParam + 'password'));
         }
 
         data['password'] = opts['password'];
 
         if (!opts.hasOwnProperty('grant_type') || opts['grant_type'] === '') {
-            console.log(c.red(error.noParam + 'grant_type'));
+            console.error(c.red(error.noParam + 'grant_type'));
         }
 
         data['grant_type'] = opts['grant_type'];
@@ -142,17 +141,18 @@ Equity.prototype = {
                 'User-Agent': p.name + '/' + p.version,
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
-        }
+        };
 
         r.post(baseUrl + endpoint.getToken, data, options, function (error, response) {
             if (callback) {
                 const err = null;
+                let responseData;
                 responseData = response.body;
                 callback(err, responseData);
             }
 
             fs.writeFile('./.env', 'TOKEN=' + response.body.access_token);
-        })
+        });
     },
    /**
      * Change Merchant password
@@ -168,21 +168,21 @@ Equity.prototype = {
         const data = {};
 
         if (typeof opts !== 'object') {
-            console.log(c.red(error.missingParam));
+            console.error(c.red(error.missingParam));
         }
 
         if (!opts.hasOwnProperty('merchantId') || opts['merchantId'] === '') {
-            console.log(c.red(error.noParam + 'merchant id'));
+            console.error(c.red(error.noParam + 'merchant id'));
         }
 
         if (!opts.hasOwnProperty('currentPassword') || opts['currentPassword'] === '') {
-            console.log(c.red(error.noParam + 'current password'));
+            console.error(c.red(error.noParam + 'current password'));
         }
 
         data['currentPassword'] = opts['currentPassword'];
 
         if (!opts.hasOwnProperty('newPassword') || opts['newPassword'] === '') {
-            console.log(c.red(error.noParam + 'new password'));
+            console.error(c.red(error.noParam + 'new password'));
         }
 
         data['newPassword'] = opts['newPassword'];
@@ -196,15 +196,16 @@ Equity.prototype = {
                 'User-Agent': p.name + '/' + p.version,
                 'Content-Type': 'application/json'
             }
-        }
+        };
 
         r.post(baseUrl + endpoint.changePassword + data.merchantId + '/changePassword', JSON.stringify(data), options, function (error, response) {
             if (callback) {
                 const err = null;
+                let responseData;
                 responseData = response.body;
                 callback(err, responseData);
             }
-        })
+        });
     },
    /**
      * Purchase Airtime
@@ -224,30 +225,30 @@ Equity.prototype = {
         };
 
         if (typeof opts !== 'object') {
-            console.log(c.red(error.missingParam));
+            console.error(c.red(error.missingParam));
         }
 
         if (!opts.hasOwnProperty('mobileNumber') || opts['mobileNumber'] === '') {
-            console.log(c.red(error.noParam + 'mobile number'));
+            console.error(c.red(error.noParam + 'mobile number'));
 
         }
 
         data.customer['mobileNumber'] = opts['mobileNumber'];
 
         if (!opts.hasOwnProperty('amount') || opts['amount'] === '') {
-            console.log(c.red(error.noParam + 'amount'));
+            console.error(c.red(error.noParam + 'amount'));
         }
 
         data.airtime['amount'] = opts['amount'];
 
         if (!opts.hasOwnProperty('telco') || opts['telco'] === '') {
-            console.log(c.red(error.noParam + 'telco'));
+            console.error(c.red(error.noParam + 'telco'));
         }
 
         data.airtime['telco'] = opts['telco'];
 
         if (!opts.hasOwnProperty('reference') || opts['reference'] === '') {
-            console.log(c.red(error.noParam + 'reference'));
+            console.error(c.red(error.noParam + 'reference'));
         }
 
         data.airtime['reference'] = opts['reference'];
@@ -261,15 +262,16 @@ Equity.prototype = {
                 'User-Agent': p.name + '/' + p.version,
                 'Content-Type': 'application/json'
             }
-        }
+        };
 
         r.post(baseUrl + endpoint.purchaseAirtime, JSON.stringify(data), options, function (error, response) {
             if (callback) {
                 const err = null;
+                let responseData;
                 responseData = response.body;
                 callback(err, responseData);
             }
-        })
+        });
     },
    /**
      * Create Payment
@@ -290,35 +292,35 @@ Equity.prototype = {
         };
 
         if (typeof opts !== 'object') {
-            console.log(c.red(error.missingParam));
+            console.error(c.red(error.missingParam));
         }
 
         if (!opts.hasOwnProperty('mobileNumber') || opts['mobileNumber'] === '') {
-            console.log(c.red(error.noParam + 'mobile number'));
+            console.error(c.red(error.noParam + 'mobile number'));
         }
 
         data.customer['mobileNumber'] = opts['mobileNumber'];
 
         if (!opts.hasOwnProperty('amount') || opts['amount'] === '') {
-            console.log(c.red(error.noParam + 'amount'));
+            console.error(c.red(error.noParam + 'amount'));
         }
 
         data.transaction['amount'] = opts['amount'];
 
         if (!opts.hasOwnProperty('description') || opts['description'] === '') {
-            console.log(c.red(error.noParam + 'description'));
+            console.error(c.red(error.noParam + 'description'));
         }
 
         data.transaction['description'] = opts['description'];
 
         if (!opts.hasOwnProperty('type') || opts['type'] === '') {
-            console.log(c.red(error.noParam + 'type'));
+            console.error(c.red(error.noParam + 'type'));
         }
 
         data.transaction['type'] = opts['type'];
 
         if (!opts.hasOwnProperty('auditNumber') || opts['auditNumber'] === '') {
-            console.log(c.red(error.noParam + 'audit number'));
+            console.error(c.red(error.noParam + 'audit number'));
         }
 
         data.transaction['auditNumber'] = opts['auditNumber'];
@@ -332,15 +334,16 @@ Equity.prototype = {
                 'User-Agent': p.name + '/' + p.version,
                 'Content-Type': 'application/json'
             }
-        }
+        };
 
         r.post(baseUrl + endpoint.createPayment, JSON.stringify(data), options, function (error, response) {
             if (callback) {
                 const err = null;
+                let responseData;
                 responseData = response.body;
                 callback(err, responseData);
             }
-        })
+        });
     },
    /**
      * Get Payment Status
@@ -354,11 +357,11 @@ Equity.prototype = {
         const data = {};
 
         if (typeof opts !== 'object') {
-            console.log(c.red(error.missingParam));
+            console.error(c.red(error.missingParam));
         }
 
         if (!opts.hasOwnProperty('transactionId') || opts['transactionId'] === '') {
-            console.log(c.red(error.noParam + 'transaction id'));
+            console.error(c.red(error.noParam + 'transaction id'));
         }
 
         const auth = 'Bearer ' + process.env.TOKEN;
@@ -370,15 +373,16 @@ Equity.prototype = {
                 'User-Agent': p.name + '/' + p.version,
                 'Content-Type': 'application/json'
             }
-        }
+        };
 
         r.get(baseUrl + endpoint.paymentStatus + data.transactionId, options, function (error, response) {
             if (callback) {
                 const err = null;
+                let responseData;
                 responseData = response.body;
                 callback(err, responseData);
             }
-        })
+        });
     },
    /**
      * Online Remittance
@@ -411,89 +415,89 @@ Equity.prototype = {
         };
 
         if (typeof opts !== 'object') {
-            console.log(c.red(error.missingParam));
+            console.error(c.red(error.missingParam));
         }
 
         if (!opts.hasOwnProperty('transactionReference') || opts['transactionReference'] === '') {
-            console.log(c.red(error.noParam + 'transaction reference'));
+            console.error(c.red(error.noParam + 'transaction reference'));
         }
 
         data['transactionReference'] = opts['transactionReference'];
 
         if (!opts.hasOwnProperty('senderName') || opts['senderName'] === '') {
-            console.log(c.red(error.noParam + 'sender name'));
+            console.error(c.red(error.noParam + 'sender name'));
         }
 
         data.source['senderName'] = opts['senderName'];
 
         if (!opts.hasOwnProperty('accountNumber') || opts['accountNumber'] === '') {
-            console.log(c.red(error.noParam + 'account number'));
+            console.error(c.red(error.noParam + 'account number'));
         }
 
         data.destination['accountNumber'] = opts['accountNumber'];
 
         if (!opts.hasOwnProperty('bicCode') || opts['bicCode'] === '') {
-            console.log(c.red(error.noParam + 'BIC CODE'));
+            console.error(c.red(error.noParam + 'BIC CODE'));
         }
 
         data.destination['bicCode'] = opts['bicCode'];
 
         if (!opts.hasOwnProperty('mobileNumber') || opts['mobileNumber'] === '') {
-            console.log(c.red(error.noParam + 'mobile number'));
+            console.error(c.red(error.noParam + 'mobile number'));
         }
 
         data.destination['mobileNumber'] = opts['mobileNumber'];
 
         if (!opts.hasOwnProperty('walletName') || opts['walletName'] === '') {
-            console.log(c.red(error.noParam + 'wallet name'));
+            console.error(c.red(error.noParam + 'wallet name'));
         }
 
         data.destination['walletName'] = opts['walletName'];
 
         if (!opts.hasOwnProperty('bankCode') || opts['bankCode'] === '') {
-            console.log(c.red(error.noParam + 'bank code'));
+            console.error(c.red(error.noParam + 'bank code'));
         }
 
         data.destination['bankCode'] = opts['bankCode'];
 
         if (!opts.hasOwnProperty('branchCode') || opts['branchCode'] === '') {
-            console.log(c.red(error.noParam + 'branch code'));
+            console.error(c.red(error.noParam + 'branch code'));
         }
 
         data.destination['branchCode'] = opts['branchCode'];
 
         if (!opts.hasOwnProperty('countryCode') || opts['countryCode'] === '') {
-            console.log(c.red(error.noParam + 'country code'));
+            console.error(c.red(error.noParam + 'country code'));
         }
 
         data.transfer['countryCode'] = opts['countryCode'];
 
         if (!opts.hasOwnProperty('currencyCode') || opts['currencyCode'] === '') {
-            console.log(c.red(error.noParam + 'currency code'));
+            console.error(c.red(error.noParam + 'currency code'));
         }
 
         data.transfer['currencyCode'] = opts['currencyCode'];
 
         if (!opts.hasOwnProperty('amount') || opts['amount'] === '') {
-            console.log(c.red(error.noParam + 'amount'));
+            console.error(c.red(error.noParam + 'amount'));
         }
 
         data.transfer['amount'] = opts['amount'];
 
         if (!opts.hasOwnProperty('paymentType') || opts['paymentType'] === '') {
-            console.log(c.red(error.noParam + 'payment type'));
+            console.error(c.red(error.noParam + 'payment type'));
         }
 
         data.transfer['paymentType'] = opts['paymentType'];
 
         if (!opts.hasOwnProperty('paymentReferences') || opts['paymentReferences'] === '') {
-            console.log(c.red(error.noParam + 'payment references'));
+            console.error(c.red(error.noParam + 'payment references'));
         }
 
         data.transfer['paymentReferences'][0] = opts['paymentReferences'];
 
         if (!opts.hasOwnProperty('remarks') || opts['remarks'] === '') {
-            console.log(c.red(error.noParam + 'remarks'));
+            console.error(c.red(error.noParam + 'remarks'));
         }
 
         data.transfer['remarks'] = opts['remarks'];
@@ -507,15 +511,16 @@ Equity.prototype = {
                 'User-Agent': p.name + '/' + p.version,
                 'Content-Type': 'application/json'
             }
-        }
+        };
 
         r.post(baseUrl + endpoint.onlineRemit, JSON.stringify(data), options, function (error, response) {
             if (callback) {
                 const err = null;
+                let responseData;
                 responseData = response.body;
                 callback(err, responseData);
             }
-        })
+        });
     }
 };
 
