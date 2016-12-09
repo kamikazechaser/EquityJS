@@ -57,74 +57,74 @@ function callback (e, r) {
 
 ```
 
-### Methods
+## Methods
 
 - _All parameters for **all** methods are **required**!_
 - _All `opts` take a JSON Object structure!_
 
-**Identity API**
+## _Identity API_
 
-`equity.changePassword(opts, callback)`
-
-Parameter | Description 
---- | --- |
-merchantId | Your merchant ID
-currentPassword | Your current password
-newPassword | Your new password
-
-`equity.getToken(opts, callback)`
+### `equity.changePassword(opts, callback)`
 
 Parameter | Description 
 --- | --- |
-username | Merchant Username, provided by Equity Bank
-password | Merchant Password, provided by Equity Bank
-grant_type | OAuth 2.0 Grant Type - must be 'password'
+`merchantId` | _Your merchant ID_
+`currentPassword` | _Your current password_
+`newPassword` | _Your new password_
 
-**Transaction API**
-
-`equity.purcahseAirtime(opts, callback)`
+### `equity.getToken(opts, callback)`
 
 Parameter | Description 
 --- | --- |
-mobileNumber | Mobile Number For Which To Purchase Airtime
-amount | Airtime Amount
-reference | Airtime Reference
-telco | Network Provider 
+`username` | _Merchant Username, provided by Equity Bank_
+`password` | _Merchant Password, provided by Equity Bank_
+`grant_type` | _OAuth 2.0 Grant Type - must be 'password'_
 
-`equity.createPayment(opts, callback)`
+## _Transaction API_
 
-Parameter | Description 
---- | --- |
-mobileNumber | Mobile Number For Which To PSend Money
-amount | Amount
-description | Transaction Description
-type | Type
-auditNumber | Audit Number
-
-`equity.paymentStatus(opts, callback)`
+### `equity.purcahseAirtime(opts, callback)`
 
 Parameter | Description 
 --- | --- |
-transactionId | TransactionId
+`mobileNumber` | _Mobile Number For Which To Purchase Airtime_
+`amount` | _Airtime Amount_
+`reference` | _Airtime Reference_
+`telco` | _Network Provider_ 
 
-`equity.onlineRemit(opts, callback)`
+### `equity.createPayment(opts, callback)`
 
 Parameter | Description 
 --- | --- |
-transactionReference | Transaction Reference
-senderName | Sender Name
-accountNumber | Account Number
-bicCode | BIC CODE
-mobileNumber | Mobile Number
-walletName | Wallet Name
-bankCode | Bank Code
-branchCode | Branch Code
-countryCode | Country Code
-currencyCode | Currency Code
-amount | Ammount
-paymentType | Payment Type
-paymentReferences | Payment References      
-remarks | Remarks
+`mobileNumber` | _Mobile Number For Which To PSend Money_
+`amount` | _Amount_
+`description` | _Transaction Description_
+`type` | _Type_
+`auditNumber` | _Audit Number_
+
+### `equity.paymentStatus(opts, callback)`
+
+Parameter | Description 
+--- | --- |
+`transactionId` | _TransactionId_
+
+### `equity.onlineRemit(opts, callback)`
+
+Parameter | Description 
+--- | --- |
+`transactionReference` | _Transaction Reference_
+`senderName` | _Sender Name_
+`accountNumber` | _Account Number_
+`bicCode` | _BIC CODE_
+`mobileNumber` | _Mobile Number_
+`walletName` | _Wallet Name_
+`bankCode` | _Bank Code_
+`branchCode` | _Branch Code_
+`countryCode` | _Country Code_
+`currencyCode` | _Currency Code_
+`amount` | _Ammount_
+`paymentType` | _Payment Type_
+`paymentReferences` | _Payment References_      
+`remarks` | _Remarks_
 
 ## Issues And Contribution
 
