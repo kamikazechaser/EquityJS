@@ -15,7 +15,7 @@
 const r = require('needle');
 const q = require('querystring');
 const c = require('rangi');
-const d = require('debug')('module');
+const d = require('debug')('equity');
 const p = require('./package.json');
 const fs = require('fs');
 
