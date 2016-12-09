@@ -15,6 +15,7 @@
 const r = require('needle');
 const q = require('querystring');
 const c = require('rangi');
+const d = require('debug')('module');
 const p = require('./package.json');
 const fs = require('fs');
 
@@ -79,7 +80,7 @@ const baseUrl = 'https://api.equitybankgroup.com';
 
 const Equity = function (opts) {
     if (typeof opts !== 'object' || !opts.hasOwnProperty('consumerKey') || !opts.hasOwnProperty('consumerSecret')) {
-        console.error(c.red(error.noKeyAndSecret));
+        d(c.red(error.noKeyAndSecret));
         process.exit(1);
     }
 
@@ -107,23 +108,23 @@ Equity.prototype = {
         const data = {};
 
         if (typeof opts !== 'object') {
-            console.error(c.red(error.missingParam));
+            d(c.red(error.missingParam));
         }
 
         if (!opts.hasOwnProperty('username') || opts['username'] === '') {
-            console.error(c.red(error.noParam + 'username'));
+            d(c.red(error.noParam + 'username'));
         }
 
         data['username'] = opts['username'];
 
         if (!opts.hasOwnProperty('password') || opts['password'] === '') {
-            console.error(c.red(error.noParam + 'password'));
+            d(c.red(error.noParam + 'password'));
         }
 
         data['password'] = opts['password'];
 
         if (!opts.hasOwnProperty('grant_type') || opts['grant_type'] === '') {
-            console.error(c.red(error.noParam + 'grant_type'));
+            d(c.red(error.noParam + 'grant_type'));
         }
 
         data['grant_type'] = opts['grant_type'];
@@ -168,21 +169,21 @@ Equity.prototype = {
         const data = {};
 
         if (typeof opts !== 'object') {
-            console.error(c.red(error.missingParam));
+            d(c.red(error.missingParam));
         }
 
         if (!opts.hasOwnProperty('merchantId') || opts['merchantId'] === '') {
-            console.error(c.red(error.noParam + 'merchant id'));
+            d(c.red(error.noParam + 'merchant id'));
         }
 
         if (!opts.hasOwnProperty('currentPassword') || opts['currentPassword'] === '') {
-            console.error(c.red(error.noParam + 'current password'));
+            d(c.red(error.noParam + 'current password'));
         }
 
         data['currentPassword'] = opts['currentPassword'];
 
         if (!opts.hasOwnProperty('newPassword') || opts['newPassword'] === '') {
-            console.error(c.red(error.noParam + 'new password'));
+            d(c.red(error.noParam + 'new password'));
         }
 
         data['newPassword'] = opts['newPassword'];
@@ -225,30 +226,30 @@ Equity.prototype = {
         };
 
         if (typeof opts !== 'object') {
-            console.error(c.red(error.missingParam));
+            d(c.red(error.missingParam));
         }
 
         if (!opts.hasOwnProperty('mobileNumber') || opts['mobileNumber'] === '') {
-            console.error(c.red(error.noParam + 'mobile number'));
+            d(c.red(error.noParam + 'mobile number'));
 
         }
 
         data.customer['mobileNumber'] = opts['mobileNumber'];
 
         if (!opts.hasOwnProperty('amount') || opts['amount'] === '') {
-            console.error(c.red(error.noParam + 'amount'));
+            d(c.red(error.noParam + 'amount'));
         }
 
         data.airtime['amount'] = opts['amount'];
 
         if (!opts.hasOwnProperty('telco') || opts['telco'] === '') {
-            console.error(c.red(error.noParam + 'telco'));
+            d(c.red(error.noParam + 'telco'));
         }
 
         data.airtime['telco'] = opts['telco'];
 
         if (!opts.hasOwnProperty('reference') || opts['reference'] === '') {
-            console.error(c.red(error.noParam + 'reference'));
+            d(c.red(error.noParam + 'reference'));
         }
 
         data.airtime['reference'] = opts['reference'];
@@ -292,35 +293,35 @@ Equity.prototype = {
         };
 
         if (typeof opts !== 'object') {
-            console.error(c.red(error.missingParam));
+            d(c.red(error.missingParam));
         }
 
         if (!opts.hasOwnProperty('mobileNumber') || opts['mobileNumber'] === '') {
-            console.error(c.red(error.noParam + 'mobile number'));
+            d(c.red(error.noParam + 'mobile number'));
         }
 
         data.customer['mobileNumber'] = opts['mobileNumber'];
 
         if (!opts.hasOwnProperty('amount') || opts['amount'] === '') {
-            console.error(c.red(error.noParam + 'amount'));
+            d(c.red(error.noParam + 'amount'));
         }
 
         data.transaction['amount'] = opts['amount'];
 
         if (!opts.hasOwnProperty('description') || opts['description'] === '') {
-            console.error(c.red(error.noParam + 'description'));
+            d(c.red(error.noParam + 'description'));
         }
 
         data.transaction['description'] = opts['description'];
 
         if (!opts.hasOwnProperty('type') || opts['type'] === '') {
-            console.error(c.red(error.noParam + 'type'));
+            d(c.red(error.noParam + 'type'));
         }
 
         data.transaction['type'] = opts['type'];
 
         if (!opts.hasOwnProperty('auditNumber') || opts['auditNumber'] === '') {
-            console.error(c.red(error.noParam + 'audit number'));
+            d(c.red(error.noParam + 'audit number'));
         }
 
         data.transaction['auditNumber'] = opts['auditNumber'];
@@ -357,11 +358,11 @@ Equity.prototype = {
         const data = {};
 
         if (typeof opts !== 'object') {
-            console.error(c.red(error.missingParam));
+            d(c.red(error.missingParam));
         }
 
         if (!opts.hasOwnProperty('transactionId') || opts['transactionId'] === '') {
-            console.error(c.red(error.noParam + 'transaction id'));
+            d(c.red(error.noParam + 'transaction id'));
         }
 
         const auth = 'Bearer ' + process.env.TOKEN;
@@ -413,89 +414,89 @@ Equity.prototype = {
         };
 
         if (typeof opts !== 'object') {
-            console.error(c.red(error.missingParam));
+            d(c.red(error.missingParam));
         }
 
         if (!opts.hasOwnProperty('transactionReference') || opts['transactionReference'] === '') {
-            console.error(c.red(error.noParam + 'transaction reference'));
+            d(c.red(error.noParam + 'transaction reference'));
         }
 
         data['transactionReference'] = opts['transactionReference'];
 
         if (!opts.hasOwnProperty('senderName') || opts['senderName'] === '') {
-            console.error(c.red(error.noParam + 'sender name'));
+            d(c.red(error.noParam + 'sender name'));
         }
 
         data.source['senderName'] = opts['senderName'];
 
         if (!opts.hasOwnProperty('accountNumber') || opts['accountNumber'] === '') {
-            console.error(c.red(error.noParam + 'account number'));
+            d(c.red(error.noParam + 'account number'));
         }
 
         data.destination['accountNumber'] = opts['accountNumber'];
 
         if (!opts.hasOwnProperty('bicCode') || opts['bicCode'] === '') {
-            console.error(c.red(error.noParam + 'BIC CODE'));
+            d(c.red(error.noParam + 'BIC CODE'));
         }
 
         data.destination['bicCode'] = opts['bicCode'];
 
         if (!opts.hasOwnProperty('mobileNumber') || opts['mobileNumber'] === '') {
-            console.error(c.red(error.noParam + 'mobile number'));
+            d(c.red(error.noParam + 'mobile number'));
         }
 
         data.destination['mobileNumber'] = opts['mobileNumber'];
 
         if (!opts.hasOwnProperty('walletName') || opts['walletName'] === '') {
-            console.error(c.red(error.noParam + 'wallet name'));
+            d(c.red(error.noParam + 'wallet name'));
         }
 
         data.destination['walletName'] = opts['walletName'];
 
         if (!opts.hasOwnProperty('bankCode') || opts['bankCode'] === '') {
-            console.error(c.red(error.noParam + 'bank code'));
+            d(c.red(error.noParam + 'bank code'));
         }
 
         data.destination['bankCode'] = opts['bankCode'];
 
         if (!opts.hasOwnProperty('branchCode') || opts['branchCode'] === '') {
-            console.error(c.red(error.noParam + 'branch code'));
+            d(c.red(error.noParam + 'branch code'));
         }
 
         data.destination['branchCode'] = opts['branchCode'];
 
         if (!opts.hasOwnProperty('countryCode') || opts['countryCode'] === '') {
-            console.error(c.red(error.noParam + 'country code'));
+            d(c.red(error.noParam + 'country code'));
         }
 
         data.transfer['countryCode'] = opts['countryCode'];
 
         if (!opts.hasOwnProperty('currencyCode') || opts['currencyCode'] === '') {
-            console.error(c.red(error.noParam + 'currency code'));
+            d(c.red(error.noParam + 'currency code'));
         }
 
         data.transfer['currencyCode'] = opts['currencyCode'];
 
         if (!opts.hasOwnProperty('amount') || opts['amount'] === '') {
-            console.error(c.red(error.noParam + 'amount'));
+            d(c.red(error.noParam + 'amount'));
         }
 
         data.transfer['amount'] = opts['amount'];
 
         if (!opts.hasOwnProperty('paymentType') || opts['paymentType'] === '') {
-            console.error(c.red(error.noParam + 'payment type'));
+            d(c.red(error.noParam + 'payment type'));
         }
 
         data.transfer['paymentType'] = opts['paymentType'];
 
         if (!opts.hasOwnProperty('paymentReferences') || opts['paymentReferences'] === '') {
-            console.error(c.red(error.noParam + 'payment references'));
+            d(c.red(error.noParam + 'payment references'));
         }
 
         data.transfer['paymentReferences'] = opts['paymentReferences'];
 
         if (!opts.hasOwnProperty('remarks') || opts['remarks'] === '') {
-            console.error(c.red(error.noParam + 'remarks'));
+            d(c.red(error.noParam + 'remarks'));
         }
 
         data.transfer['remarks'] = opts['remarks'];
