@@ -14,7 +14,6 @@
      *
      */
 const should = require('should');
-const fs = require('fs');
 const Equity = require('.');
 
 const timeout = 10 * 1000;
@@ -77,7 +76,6 @@ describe('Methods', function() {
         equity.getToken({ username: 'equityjs', password: 'equityjs', grant_type: 'password' }, function(e, cb) {
             should(cb.token_type).eql(tokenType);
             should(cb.expires_in).eql(expiryTime);
-            fs.writeFile('./.env', 'TOKEN=' + cb.access_token);
             return done();
         });
     });
