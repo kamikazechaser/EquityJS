@@ -409,9 +409,7 @@ Equity.prototype = {
         const data = {
             source: {},
             destination: {},
-            transfer: {
-                paymentReferences: []
-            }
+            transfer: {}
         };
 
         if (typeof opts !== 'object') {
@@ -494,7 +492,7 @@ Equity.prototype = {
             console.error(c.red(error.noParam + 'payment references'));
         }
 
-        data.transfer['paymentReferences'][0] = opts['paymentReferences'];
+        data.transfer['paymentReferences'] = opts['paymentReferences'];
 
         if (!opts.hasOwnProperty('remarks') || opts['remarks'] === '') {
             console.error(c.red(error.noParam + 'remarks'));
@@ -517,7 +515,7 @@ Equity.prototype = {
             if (callback) {
                 const err = null;
                 let responseData;
-                responseData = response.body;
+                responseData = JSON.parse(response.body);
                 callback(err, responseData);
             }
         });

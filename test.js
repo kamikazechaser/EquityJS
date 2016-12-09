@@ -36,6 +36,8 @@ const resultCode = '000';
 const amount = '2000.00';
 const transactionReference = '1234';
 const mobileNumber = '2547630000000';
+const transactionId = '000000417772';
+const statusRemit = 'success';
 
    /**
      * Initiate Tests
@@ -113,5 +115,13 @@ describe('Methods', function() {
             should(cb.mobileNumber).eql(mobileNumber);
             return done();
         });
-    });   
+    });
+    it('Online remmitance', function(done) {
+        this.timeout(timeout)
+        equity.onlineRemit({ transactionReference: 'ok', senderName: 'sohail', accountNumber: '555', bicCode: '555001', mobileNumber: '07117778555', walletName: 'main', bankCode: '63254', branchCode: '58755', countryCode: '255', currencyCode: 'USD', amount: '555', paymentType: 'normal', paymentReferences: [ 'jon', 'mark', 'spencer'], remarks: 'ok' }, function(e, cb) {
+            should(cb.transactionId).eql(transactionId);
+            should(cb.status).eql(statusRemit);
+            return done();
+        });
+    });     
 });
