@@ -54,7 +54,8 @@ function callback (e, r) {
   } else {
     console.log(r);
   }
-}```
+}
+```
 
 ### Methods
 
