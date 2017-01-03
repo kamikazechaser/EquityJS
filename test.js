@@ -1,8 +1,8 @@
    /**
      * EquityJs
      *
-     * A Node.js Library For The Equity Eazzy API 
-     * 
+     * A Node.js Library For The Equity Eazzy API
+     *
      * Mohammed Sohail <sohailsameja@gmail.com>
      * Released Under AGPL-v3 License
      *
@@ -37,6 +37,9 @@ const transactionReference = '1234';
 const mobileNumber = '2547630000000';
 const transactionId = '000000417772';
 const statusRemit = 'success';
+const merchantId = "100";
+const currentPassword = "equityJs";
+const newPassword = "equityJs";
 
    /**
      * Initiate Tests
@@ -81,7 +84,7 @@ describe('Methods', function() {
     });
     it('Change merchant password', function(done) {
         this.timeout(timeout)
-        equity.changePassword({ merchantId: '100', currentPassword: 'equityjs', newPassword: 'password' }, function(e, cb) {
+        equity.changePassword({ merchantId: merchantId, currentPassword: currentPassword, newPassword: newPassword }, function(e, cb) {
             should(cb.status).eql(success);
             return done();
         });
@@ -109,7 +112,7 @@ describe('Methods', function() {
         equity.paymentStatus({ transactionId: '100' }, function(e, cb) {
             should(cb.transactionReference).eql(transactionReference);
             should(cb.status).eql(success);
-            should(cb.amount).eql(amount);            
+            should(cb.amount).eql(amount);
             should(cb.mobileNumber).eql(mobileNumber);
             return done();
         });
@@ -121,5 +124,5 @@ describe('Methods', function() {
             should(cb.status).eql(statusRemit);
             return done();
         });
-    });     
+    });
 });
