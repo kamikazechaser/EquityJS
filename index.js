@@ -1,36 +1,36 @@
-   /**
-     * EquityJs
-     *
-     * A Node.js Library For The Equity Eazzy API 
-     * 
-     * Mohammed Sohail <sohailsameja@gmail.com>
-     * Released Under AGPL-v3 License
-     *
-     */
+/**
+ * EquityJs
+ *
+ * A Node.js Library For The Equity Eazzy API
+ *
+ * Mohammed Sohail <sohailsameja@gmail.com>
+ * Released Under AGPL-v3 License
+ *
+ */
 
-   /**
-     * Node.js Dependencies
-     *
-     */
+/**
+ * Node.js Dependencies
+ *
+ */
 const r = require('needle');
 const q = require('querystring');
 const c = require('rangi');
 const p = require('./package.json');
 const fs = require('fs');
 
-   /**
-     * Load Environmental Variables
-     */
+/**
+ * Load Environmental Variables
+ */
 require('dotenv').config({
     silent: true
 });
 
-   /**
-     * Equity API endpoints
-     *
-     * @constant {object}
-     *
-     */
+/**
+ * Equity API endpoints
+ *
+ * @constant {object}
+ *
+ */
 const endpoint = {
     getToken: '/identity/v1-sandbox/token',
     changePassword: '/identity/v1-sandbox/merchants/',
@@ -40,45 +40,49 @@ const endpoint = {
     onlineRemit: '/transaction/v1-sandbox/remittance'
 };
 
-   /**
-     * Custom API Error messages
-     *
-     * @constant {object}
-     *
-     */
+/**
+ * Custom API Error messages
+ *
+ * @constant {object}
+ *
+ */
 const error = {
-    noKeyAndSecret: 'You need to specify your Equity Consumer Key and Consumer Secret',
+    noKeyAndSecret: 'You need to specify your Equity Consumer Key, Consumer Secret, Username and Password',
     noParam: 'You need to specify your ',
     missingParam: 'You must pass in the required parameters'
 };
 
-   /**
-     * Equity API Defaults
-     *
-     * @property {string} key 
-     * @property {string} secret
-     * @property {boolean} debug
-     *
-     */
+/**
+ * Equity API Defaults
+ *
+ * @property {string} key
+ * @property {string} secret
+ * @property {boolean} debug
+ *
+ */
 const api = {
     key: '',
     secret: '',
-    debug: false
+    debug: false,
+    username: '',
+    password: ''
 };
 
 const baseUrl = 'https://api.equitybankgroup.com';
-   /**
-     * Constructor
-     *
-     * @param {object} opts - API Settings
-     * @param {string} opts.consumerKey - Equity App Consumer Key
-     * @param {string} opts.consumerSecret - Equity App Consumer Secret
-     * @param {boolean} opts.debug - (Optional) Debugging Mode
-     *
-     */
+/**
+ * Constructor
+ *
+ * @param {object} opts - API Settings
+ * @param {string} opts.consumerKey - Equity App Consumer Key
+ * @param {string} opts.consumerSecret - Equity App Consumer Secret
+ * @param {string} opts.username - Equity App Username
+ * @param {string} opts.password - Equity App Password
+ * @param {boolean} opts.debug - (Optional) Debugging Mode
+ *
+ */
 
 const Equity = function (opts) {
-    if (typeof opts !== 'object' || !opts.hasOwnProperty('consumerKey') || !opts.hasOwnProperty('consumerSecret')) {
+    if (typeof opts !== 'object' || !opts.hasOwnProperty('consumerKey') || !opts.hasOwnProperty('consumerSecret') || !opts.hasOwnProperty('username') || !opts.hasOwnProperty('password')) {
         console.error(c.red(error.noKeyAndSecret));
         process.exit(1);
     }
@@ -89,72 +93,33 @@ const Equity = function (opts) {
 
     api.key = opts.consumerKey;
     api.secret = opts.consumerSecret;
+    api.username = opts.username;
+    api.password = opts.password;
     api.debug = opts.debug || false;
 };
 
+// const auth = 'Basic ' + Buffer.from(api.key + ':' + api.secret).toString('base64');
+
+//         const options = {
+//             headers: {
+//                 'Accept': '*/*',
+//                 'Authorization': auth,
+//                 'User-Agent': p.name + '/' + p.version,
+//                 'Content-Type': 'application/x-www-form-urlencoded'
+//             }
+//         };
+
+//         r.post(baseUrl + endpoint.getToken, data, options, function (error, response) {
+//             if (callback) {
+//                 const err = null;
+//                 let responseData;
+//                 responseData = response.body;
+//                 callback(err, responseData);
+//             }
+
 Equity.prototype = {
-   /**
-     * Generate An Access Token
-     *
-     * @param {object} opts
-     * @param {string opts.username} - Merchant Username, provided by Equity Bank
-     * @param {string opts.password} - Merchant Password, provided by Equity Bank
-     * @param {string opts.grant_type} - OAuth 2.0 Grant Type - must be 'password'
-     *
-     */
-    
-    getToken: function (opts, callback) {
-        const data = {};
 
-        if (typeof opts !== 'object') {
-            console.error(c.red(error.missingParam));
-        }
-
-        if (!opts.hasOwnProperty('username') || opts['username'] === '') {
-            console.error(c.red(error.noParam + 'username'));
-        }
-
-        data['username'] = opts['username'];
-
-        if (!opts.hasOwnProperty('password') || opts['password'] === '') {
-            console.error(c.red(error.noParam + 'password'));
-        }
-
-        data['password'] = opts['password'];
-
-        if (!opts.hasOwnProperty('grant_type') || opts['grant_type'] === '') {
-            console.error(c.red(error.noParam + 'grant_type'));
-        }
-
-        data['grant_type'] = opts['grant_type'];
-
-        if (data) {
-            q.stringify(data);
-        }
-
-        const auth = 'Basic ' + Buffer.from(api.key + ':' + api.secret).toString('base64');
-
-        const options = {
-            headers: {
-                'Accept': '*/*',
-                'Authorization': auth,
-                'User-Agent': p.name + '/' + p.version,
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        };
-
-        r.post(baseUrl + endpoint.getToken, data, options, function (error, response) {
-            if (callback) {
-                const err = null;
-                let responseData;
-                responseData = response.body;
-                callback(err, responseData);
-            }
-
-            fs.writeFile('./.env', 'TOKEN=' + response.body.access_token);
-        });
-    },
-   /**
+    /**
      * Change Merchant password
      *
      * @param {object} opts
@@ -163,7 +128,7 @@ Equity.prototype = {
      * @param {string opts.newPassword} - New Merchant Password
      *
      */
-    
+
     changePassword: function (opts, callback) {
         const data = {};
 
@@ -207,17 +172,17 @@ Equity.prototype = {
             }
         });
     },
-   /**
+    /**
      * Purchase Airtime
      *
      * @param {object} opts
      * @param {string opts.mobileNumber} - Mobile Number For Which To Purchase Airtime
      * @param {string opts.amount} - Airtime Amount
      * @param {string opts.reference} - Airtime Reference
-     * @param {string opts.telco} - Network Provider   
+     * @param {string opts.telco} - Network Provider
      *
      */
-    
+
     purchaseAirtime: function (opts, callback) {
         const data = {
             customer: {},
@@ -273,7 +238,7 @@ Equity.prototype = {
             }
         });
     },
-   /**
+    /**
      * Create Payment
      *
      * @param {object} opts
@@ -284,7 +249,7 @@ Equity.prototype = {
      * @param {string opts.auditNumber} - Audit Number
      *
      */
-    
+
     createPayment: function (opts, callback) {
         const data = {
             customer: {},
@@ -345,14 +310,14 @@ Equity.prototype = {
             }
         });
     },
-   /**
+    /**
      * Get Payment Status
      *
      * @param {object} opts
      * @param {string opts.transactionId} - TransactionId
      *
      */
-    
+
     paymentStatus: function (opts, callback) {
         const data = {};
 
@@ -384,7 +349,7 @@ Equity.prototype = {
             }
         });
     },
-   /**
+    /**
      * Online Remittance
      *
      * @param {object} opts
@@ -400,11 +365,11 @@ Equity.prototype = {
      * @param {string opts.currencyCode} - Currency Code
      * @param {string opts.amount} - Ammount
      * @param {string opts.paymentType} - Payment Type
-     * @param {string opts.paymentReferences} - Payment References      
+     * @param {string opts.paymentReferences} - Payment References
      * @param {string opts.remarks} - Remarks
      *
      */
-    
+
     onlineRemit: function (opts, callback) {
         const data = {
             source: {},
