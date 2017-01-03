@@ -47,7 +47,7 @@ const endpoint = {
      *
      */
 const error = {
-    noKeyAndSecret: 'You need to specify your Equity Consumer Key and Consumer Secret',
+    noKeyAndSecret: 'You need to specify your Equity Consumer Key, Consumer Secret, Username and Password',
     noParam: 'You need to specify your ',
     missingParam: 'You must pass in the required parameters'
 };
@@ -63,7 +63,9 @@ const error = {
 const api = {
     key: '',
     secret: '',
-    debug: false
+    debug: false,
+    username: '',
+    password: ''
 };
 
 const baseUrl = 'https://api.equitybankgroup.com';
@@ -78,7 +80,7 @@ const baseUrl = 'https://api.equitybankgroup.com';
      */
 
 const Equity = function (opts) {
-    if (typeof opts !== 'object' || !opts.hasOwnProperty('consumerKey') || !opts.hasOwnProperty('consumerSecret')) {
+    if (typeof opts !== 'object' || !opts.hasOwnProperty('consumerKey') || !opts.hasOwnProperty('consumerSecret') || !opts.hasOwnProperty('username') || !opts.hasOwnProperty('password')) {
         console.error(c.red(error.noKeyAndSecret));
         process.exit(1);
     }
@@ -89,71 +91,15 @@ const Equity = function (opts) {
 
     api.key = opts.consumerKey;
     api.secret = opts.consumerSecret;
+    api.username = opts.username;
+    api.password = opts.password;
     api.debug = opts.debug || false;
 };
 
+// const auth = 'Basic ' + Buffer.from(api.key + ':' + api.secret).toString('base64');
+
 Equity.prototype = {
-   /**
-     * Generate An Access Token
-     *
-     * @param {object} opts
-     * @param {string opts.username} - Merchant Username, provided by Equity Bank
-     * @param {string opts.password} - Merchant Password, provided by Equity Bank
-     * @param {string opts.grant_type} - OAuth 2.0 Grant Type - must be 'password'
-     *
-     */
-    
-    getToken: function (opts, callback) {
-        const data = {};
-
-        if (typeof opts !== 'object') {
-            console.error(c.red(error.missingParam));
-        }
-
-        if (!opts.hasOwnProperty('username') || opts['username'] === '') {
-            console.error(c.red(error.noParam + 'username'));
-        }
-
-        data['username'] = opts['username'];
-
-        if (!opts.hasOwnProperty('password') || opts['password'] === '') {
-            console.error(c.red(error.noParam + 'password'));
-        }
-
-        data['password'] = opts['password'];
-
-        if (!opts.hasOwnProperty('grant_type') || opts['grant_type'] === '') {
-            console.error(c.red(error.noParam + 'grant_type'));
-        }
-
-        data['grant_type'] = opts['grant_type'];
-
-        if (data) {
-            q.stringify(data);
-        }
-
-        const auth = 'Basic ' + Buffer.from(api.key + ':' + api.secret).toString('base64');
-
-        const options = {
-            headers: {
-                'Accept': '*/*',
-                'Authorization': auth,
-                'User-Agent': p.name + '/' + p.version,
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        };
-
-        r.post(baseUrl + endpoint.getToken, data, options, function (error, response) {
-            if (callback) {
-                const err = null;
-                let responseData;
-                responseData = response.body;
-                callback(err, responseData);
-            }
-
-            fs.writeFile('./.env', 'TOKEN=' + response.body.access_token);
-        });
-    },
+   
    /**
      * Change Merchant password
      *
