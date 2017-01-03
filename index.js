@@ -98,6 +98,23 @@ const Equity = function (opts) {
 
 // const auth = 'Basic ' + Buffer.from(api.key + ':' + api.secret).toString('base64');
 
+//         const options = {
+//             headers: {
+//                 'Accept': '*/*',
+//                 'Authorization': auth,
+//                 'User-Agent': p.name + '/' + p.version,
+//                 'Content-Type': 'application/x-www-form-urlencoded'
+//             }
+//         };
+
+//         r.post(baseUrl + endpoint.getToken, data, options, function (error, response) {
+//             if (callback) {
+//                 const err = null;
+//                 let responseData;
+//                 responseData = response.body;
+//                 callback(err, responseData);
+//             }
+           
 Equity.prototype = {
    
    /**
