@@ -1,8 +1,8 @@
    /**
      * EquityJs
      *
-     * A Node.js Library For The Equity Eazzy API 
-     * 
+     * A Node.js Library For The Equity Eazzy API
+     *
      * Mohammed Sohail <sohailsameja@gmail.com>
      * Released Under AGPL-v3 License
      *
@@ -55,7 +55,7 @@ const error = {
    /**
      * Equity API Defaults
      *
-     * @property {string} key 
+     * @property {string} key
      * @property {string} secret
      * @property {boolean} debug
      *
@@ -89,7 +89,16 @@ const Equity = function (opts) {
 
     api.key = opts.consumerKey;
     api.secret = opts.consumerSecret;
+    api.username = opts.username || 'user';
+    api.password = opts.password || 'pass';
+    api.grant_type = opts.grant_type || 'password';
     api.debug = opts.debug || false;
+
+    this.getToken({
+        username: api.username,
+        password: api.password,
+        grant_type: api.grant_type
+    });
 };
 
 Equity.prototype = {
@@ -102,7 +111,7 @@ Equity.prototype = {
      * @param {string opts.grant_type} - OAuth 2.0 Grant Type - must be 'password'
      *
      */
-    
+
     getToken: function (opts, callback) {
         const data = {};
 
@@ -163,7 +172,7 @@ Equity.prototype = {
      * @param {string opts.newPassword} - New Merchant Password
      *
      */
-    
+
     changePassword: function (opts, callback) {
         const data = {};
 
@@ -214,10 +223,10 @@ Equity.prototype = {
      * @param {string opts.mobileNumber} - Mobile Number For Which To Purchase Airtime
      * @param {string opts.amount} - Airtime Amount
      * @param {string opts.reference} - Airtime Reference
-     * @param {string opts.telco} - Network Provider   
+     * @param {string opts.telco} - Network Provider
      *
      */
-    
+
     purchaseAirtime: function (opts, callback) {
         const data = {
             customer: {},
@@ -284,7 +293,7 @@ Equity.prototype = {
      * @param {string opts.auditNumber} - Audit Number
      *
      */
-    
+
     createPayment: function (opts, callback) {
         const data = {
             customer: {},
@@ -352,7 +361,7 @@ Equity.prototype = {
      * @param {string opts.transactionId} - TransactionId
      *
      */
-    
+
     paymentStatus: function (opts, callback) {
         const data = {};
 
@@ -400,11 +409,11 @@ Equity.prototype = {
      * @param {string opts.currencyCode} - Currency Code
      * @param {string opts.amount} - Ammount
      * @param {string opts.paymentType} - Payment Type
-     * @param {string opts.paymentReferences} - Payment References      
+     * @param {string opts.paymentReferences} - Payment References
      * @param {string opts.remarks} - Remarks
      *
      */
-    
+
     onlineRemit: function (opts, callback) {
         const data = {
             source: {},

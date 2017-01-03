@@ -10,7 +10,7 @@
 A light Node.js Library For The Equity Bank's Eazzy API
 
 > Documentation
- 
+
 
 ## Installation
 
@@ -26,13 +26,16 @@ const Equity = require('equityjs');
 
 const equity = new Equity({
   consumerKey: 'YOUR_CONSUMER_KEY',
-  consumerSecret: 'YOUR_CONSUMER_SECRET'
+  consumerSecret: 'YOUR_CONSUMER_SECRET',
+  username: 'user', //(optional)
+  password: 'pass', //(optional)
+  grant_type: 'password' //(optional)
 );
 ```
 
-Both are **required** parameters. You can obtain your keys from [here](https://developers.equitybankgroup.com/user/me/apps), by creating an app.
+You can obtain your *consumerKey* and *consumerSecret* keys from [here](https://developers.equitybankgroup.com/user/me/apps), by creating an app.
 
-Refer to [examples.js](https://github.com/kamikazechaser/EquityJs/blob/master/examples.js) for more usage indformation.
+Refer to [examples.js](https://github.com/cryarchy/EquityJs/blob/master/examples.js) for more usage information.
 
 ## API
 
@@ -41,7 +44,7 @@ All Sandbox Endpoints are supported at the moment. In-production Endpoints will 
 Callback from API calls return 2 parameters, that is:
 
 - error
-- response 
+- response
 
 _The response is always the original JSON Object sent by the Equity API_
 
@@ -53,7 +56,7 @@ function callback (e, r) {
     console.error(e);
    else {
     console.log(r);
-  
+
 
 ```
 
@@ -66,7 +69,7 @@ function callback (e, r) {
 
 ### `equity.changePassword(opts, callback)`
 
-Parameter | Description 
+Parameter | Description
 --- | --- |
 `merchantId` | _Your merchant ID_
 `currentPassword` | _Your current password_
@@ -74,7 +77,7 @@ Parameter | Description
 
 ### `equity.getToken(opts, callback)`
 
-Parameter | Description 
+Parameter | Description
 --- | --- |
 `username` | _Merchant Username, provided by Equity Bank_
 `password` | _Merchant Password, provided by Equity Bank_
@@ -84,18 +87,18 @@ Parameter | Description
 
 ### `equity.purcahseAirtime(opts, callback)`
 
-Parameter | Description 
+Parameter | Description
 --- | --- |
 `mobileNumber` | _Mobile Number For Which To Purchase Airtime_
 `amount` | _Airtime Amount_
 `reference` | _Airtime Reference_
-`telco` | _Network Provider_ 
+`telco` | _Network Provider_
 
 ### `equity.createPayment(opts, callback)`
 
-Parameter | Description 
+Parameter | Description
 --- | --- |
-`mobileNumber` | _Mobile Number For Which To PSend Money_
+`mobileNumber` | _Mobile Number For Which To Send Money_
 `amount` | _Amount_
 `description` | _Transaction Description_
 `type` | _Type_
@@ -103,13 +106,13 @@ Parameter | Description
 
 ### `equity.paymentStatus(opts, callback)`
 
-Parameter | Description 
+Parameter | Description
 --- | --- |
 `transactionId` | _TransactionId_
 
 ### `equity.onlineRemit(opts, callback)`
 
-Parameter | Description 
+Parameter | Description
 --- | --- |
 `transactionReference` | _Transaction Reference_
 `senderName` | _Sender Name_
