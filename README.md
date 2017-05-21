@@ -18,6 +18,11 @@ This library allows you to invoke the Eazzy API methods.
 
 - This library is promised based.
 - This library returns actual server errors/responses for debugging/consumption purposes.
+- Supports both sandbox and production mode.
+
+**OAuth Information**
+
+Due to the nature of the API, and security reasons, you will be responsible for getting, storing and refreshing your access token. You will need to pass in the token as a parameter for every request (that requires it) you make. This library only provides a low level interface to the Eazzy API.
  
 
 ## Installation
