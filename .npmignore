@@ -1,10 +1,5 @@
 node_modules/
-coverage/
-.env
-npm-debug.log
-examples.js
-Gruntfile.js
-test.js
+test/
 .eslintrc.yml
 .gitignore
 .travis.yml
