@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/l/equityjs.svg?style=flat-square)](https://github.com/kamikazechaser/EquityJs/blob/master/LICENSE)
 
 
-> 🏛 EquityJs
+> 🏛 EquityJS
 
 A light Node.js llbrary for the Equity Bank's Eazzy API
 
