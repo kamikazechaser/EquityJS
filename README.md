@@ -1,5 +1,6 @@
 [![npm](https://img.shields.io/npm/v/equityjs.svg?style=flat-square)](https://www.npmjs.com/package/equityjs)
 [![Travis](https://img.shields.io/travis/kamikazechaser/EquityJS.svg?style=flat-square)](https://travis-ci.org/kamikazechaser/EquityJS)
+[![Codecov](https://img.shields.io/codecov/c/github/kamikazechaser/EquityJS.svg?style=flat-square)](https://codecov.io/gh/kamikazechaser/EquityJS)
 [![Telegram](http://img.shields.io/badge/Telegram-@kamikazechaser-00aced.svg?style=flat-square)](https://telegram.me/kamikazechaser)
 [![npm](https://img.shields.io/npm/l/equityjs.svg?style=flat-square)](https://github.com/kamikazechaser/EquityJs/blob/master/LICENSE)
 
