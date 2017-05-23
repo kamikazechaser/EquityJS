@@ -121,5 +121,3 @@ Create payment.
 | description | <code>String</code> | Payment description. |
 | type | <code>String</code> | Payment type. |
 | auditNumber | <code>String</code> | Audit number. |
-
-Released Under AGPL-3.0@forfuture.tech>
